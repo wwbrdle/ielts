@@ -32,9 +32,14 @@ jobs:
     - name: Setup SSH key
       run: |
         mkdir -p ~/.ssh
+        echo "SSH key length: ${#ORACLE_SSH_KEY}"
         echo "${{ secrets.ORACLE_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        ls -la ~/.ssh/
+        eval "$(ssh-agent -s)"
+        ssh-add ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.ORACLE_HOST }} >> ~/.ssh/known_hosts
+        echo "SSH setup completed"
         
     - name: Copy files to server
       run: |
