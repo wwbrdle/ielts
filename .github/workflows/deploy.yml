@@ -33,8 +33,24 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "SSH key length: ${#ORACLE_SSH_KEY}"
+        
+        # SSH 키가 비어있는지 확인
+        if [ -z "${{ secrets.ORACLE_SSH_KEY }}" ]; then
+          echo "ERROR: ORACLE_SSH_KEY is empty!"
+          exit 1
+        fi
+        
+        # SSH 키 내용 확인 (처음과 끝 부분만)
+        echo "SSH key starts with: $(echo "${{ secrets.ORACLE_SSH_KEY }}" | head -c 50)"
+        echo "SSH key ends with: $(echo "${{ secrets.ORACLE_SSH_KEY }}" | tail -c 50)"
+        
         echo "${{ secrets.ORACLE_SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        
+        # SSH 키 파일 내용 확인
+        echo "SSH key file content (first 100 chars):"
+        head -c 100 ~/.ssh/id_rsa
+        
         ls -la ~/.ssh/
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/id_rsa
