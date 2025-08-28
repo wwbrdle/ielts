@@ -29,9 +29,16 @@ jobs:
       run: |
         tar -czf build.tar.gz build/
         
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.ORACLE_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.ORACLE_HOST }} >> ~/.ssh/known_hosts
+        
     - name: Copy files to server
       run: |
-        scp -i ${{ secrets.ORACLE_SSH_KEY }} -P ${{ secrets.ORACLE_PORT }} -o StrictHostKeyChecking=no build.tar.gz ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/tmp/
+        scp -P ${{ secrets.ORACLE_PORT }} build.tar.gz ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/tmp/
         
     - name: Extract and deploy
       uses: appleboy/ssh-action@v1.0.0
