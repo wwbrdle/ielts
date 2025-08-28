@@ -14,6 +14,10 @@ IELTS 스피킹 테스트를 연습할 수 있는 웹 애플리케이션입니�
 
 ### 필수 요구사항
 
+bl216@macbookair ielts % vi ~/.ssh/config
+bl216@macbookair ielts % git remote set-url origin git@wwbrdle:wwbrdle/ielts.git
+이렇게 설정을 해줘야 wwbrdle의 카를 갖고 푸쉬할수있음
+
 - Node.js (v14 이상)
 - 최신 웹 브라우저 (Chrome, Edge, Safari 등)
 - 마이크 권한

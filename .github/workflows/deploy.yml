@@ -1,0 +1,63 @@
+name: Deploy to Oracle Cloud
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+        
+    - name: Build application
+      run: npm run build
+        
+    - name: Create deployment package
+      run: |
+        tar -czf dist.tar.gz dist/
+        
+    - name: Copy files to server
+      run: |
+        scp -i ${{ secrets.ORACLE_SSH_KEY }} -P ${{ secrets.ORACLE_PORT }} -o StrictHostKeyChecking=no dist.tar.gz ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/tmp/
+        
+    - name: Extract and deploy
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.ORACLE_HOST }}
+        username: ${{ secrets.ORACLE_USERNAME }}
+        key: ${{ secrets.ORACLE_SSH_KEY }}
+        port: ${{ secrets.ORACLE_PORT }}
+        script: |
+          # 앱 디렉토리로 이동
+          cd /var/www/ielts-app
+          
+          # 기존 파일 백업
+          sudo cp -r dist dist.backup.$(date +%Y%m%d_%H%M%S) || true
+          
+          # 새 빌드 파일 압축 해제
+          sudo rm -rf dist
+          sudo mkdir -p dist
+          sudo tar -xzf /tmp/dist.tar.gz -C /var/www/ielts-app/
+          sudo rm /tmp/dist.tar.gz
+          
+          # 권한 설정
+          sudo chown -R www-data:www-data /var/www/ielts-app/dist
+          sudo chmod -R 755 /var/www/ielts-app/dist
+          
+          # Nginx 재시작
+          sudo systemctl restart nginx
+          
+          echo "Deployment completed successfully!"

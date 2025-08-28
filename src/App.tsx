@@ -11,6 +11,15 @@ interface Question {
   category: string;
 }
 
+interface Part2Question {
+  id: number;
+  topic: string;
+  mainQuestion: string;
+  subQuestions: string[];
+  sampleAnswer: string;
+  category: string;
+}
+
 const sampleQuestions: Question[] = [
   // Your Country
   {
@@ -811,8 +820,39 @@ const sampleQuestions: Question[] = [
   }
 ];
 
+const part2Questions: Part2Question[] = [
+  {
+    id: 1,
+    topic: "Weather",
+    mainQuestion: "Describe a kind of weather you like",
+    subQuestions: [
+      "What it is",
+      "Where you usually experience it", 
+      "What you will do in this weather",
+      "and explain why you like it"
+    ],
+    sampleAnswer: "One type of weather I really enjoy is hot and sunny weather. Bright sunshine and warm temperatures always put me in a good mood.\n\nI usually experience this weather when I visit Miami, Florida, which is famous for its beaches and tropical climate. The sun is almost always shining there, and the warmth near the ocean feels very inviting.\n\nDuring this weather, I love swimming, relaxing by the water, or fishing with friends. It's a perfect way to enjoy the outdoors and the lively atmosphere of the city.\n\nI like hot and sunny weather because it makes me feel energetic and carefree. I can wear light clothes comfortably, spend time outdoors, and it just leaves me with happy memories.",
+    category: "Part 2 - Weather"
+  },
+  {
+    id: 2,
+    topic: "Place",
+    mainQuestion: "Describe a place you would like to visit",
+    subQuestions: [
+      "Where it is",
+      "How you know about this place",
+      "What you would do there",
+      "and explain why you would like to visit this place"
+    ],
+    sampleAnswer: "A place I would really like to visit is Japan, specifically Tokyo. I've always been fascinated by Japanese culture, technology, and cuisine.\n\nI know about this place through various sources - documentaries, travel shows, and friends who have visited. I've also read about its rich history and modern innovations.\n\nIf I could visit, I would explore the traditional temples and shrines, try authentic Japanese food like sushi and ramen, visit the famous Shibuya crossing, and experience the unique blend of old and new that Tokyo offers.\n\nI want to visit Japan because it represents the perfect balance between preserving tradition and embracing innovation. The culture seems so different from what I'm used to, and I think it would be an eye-opening experience.",
+    category: "Part 2 - Place"
+  }
+];
+
 function App() {
+  const [currentPart, setCurrentPart] = useState<'part1' | 'part2'>('part1');
   const [currentQuestion, setCurrentQuestion] = useState<Question>(sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)]);
+  const [currentPart2Question, setCurrentPart2Question] = useState<Part2Question>(part2Questions[0]);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [currentTranscript, setCurrentTranscript] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
@@ -832,9 +872,15 @@ function App() {
   };
 
   const getRandomQuestion = () => {
-    const randomIndex = Math.floor(Math.random() * sampleQuestions.length);
-    const randomQuestion = sampleQuestions[randomIndex];
-    setCurrentQuestion(randomQuestion);
+    if (currentPart === 'part1') {
+      const randomIndex = Math.floor(Math.random() * sampleQuestions.length);
+      const randomQuestion = sampleQuestions[randomIndex];
+      setCurrentQuestion(randomQuestion);
+    } else {
+      const randomIndex = Math.floor(Math.random() * part2Questions.length);
+      const randomPart2Question = part2Questions[randomIndex];
+      setCurrentPart2Question(randomPart2Question);
+    }
     setUserAnswer('');
     setSimilarityScore(null);
     setShowResult(false);
@@ -868,13 +914,57 @@ function App() {
       </header>
       
       <main className="App-main">
+        <div className="part-selector">
+          <button 
+            onClick={() => {
+              setCurrentPart('part1');
+              setUserAnswer('');
+              setCurrentTranscript('');
+              setSimilarityScore(null);
+              setShowResult(false);
+              setShowSampleAnswer(false);
+            }} 
+            className={`part-button ${currentPart === 'part1' ? 'active' : ''}`}
+          >
+            Part 1
+          </button>
+          <button 
+            onClick={() => {
+              setCurrentPart('part2');
+              setUserAnswer('');
+              setCurrentTranscript('');
+              setSimilarityScore(null);
+              setShowResult(false);
+              setShowSampleAnswer(false);
+            }} 
+            className={`part-button ${currentPart === 'part2' ? 'active' : ''}`}
+          >
+            Part 2
+          </button>
+        </div>
+
         <div className="question-controls">
           <button onClick={getRandomQuestion} className="random-button">
             🎲 랜덤 문제 선택
           </button>
         </div>
 
-        <QuestionCard question={currentQuestion} />
+        {currentPart === 'part1' ? (
+          <QuestionCard question={currentQuestion} />
+        ) : (
+          <div className="part2-question">
+            <h2>{currentPart2Question.topic}</h2>
+            <h3>{currentPart2Question.mainQuestion}</h3>
+            <div className="sub-questions">
+              <p>You should say:</p>
+              <ul>
+                {currentPart2Question.subQuestions.map((subQ, index) => (
+                  <li key={index}>{subQ}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         
         <SpeechRecognition
           isRecording={isRecording}
@@ -910,7 +1000,7 @@ function App() {
           <ResultDisplay
             similarityScore={similarityScore}
             userAnswer={userAnswer}
-            sampleAnswer={currentQuestion.sampleAnswer}
+            sampleAnswer={currentPart === 'part1' ? currentQuestion.sampleAnswer : currentPart2Question.sampleAnswer}
           />
         )}
       </main>
