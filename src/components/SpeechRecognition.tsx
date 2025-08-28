@@ -16,7 +16,7 @@ const SpeechRecognition: React.FC<SpeechRecognitionProps> = ({
   onRecordingComplete,
   onTranscriptUpdate
 }) => {
-  const [transcript, setTranscript] = useState<string>('');
+
   const [isSupported, setIsSupported] = useState<boolean>(false);
   const recognitionRef = useRef<any>(null);
 
@@ -43,13 +43,8 @@ const SpeechRecognition: React.FC<SpeechRecognitionProps> = ({
           }
         }
         
-        // 전체 transcript를 누적하여 업데이트
-        setTranscript(prevTranscript => {
-          const newTranscript = prevTranscript + finalTranscript + interimTranscript;
-          // 실시간으로 전체 transcript를 부모 컴포넌트로 전달
-          onTranscriptUpdate(newTranscript);
-          return newTranscript;
-        });
+        // 실시간으로 전체 transcript를 부모 컴포넌트로 전달
+        onTranscriptUpdate(finalTranscript + interimTranscript);
         
         // 최종 결과가 있을 때만 onRecordingComplete 호출
         if (finalTranscript) {
@@ -64,11 +59,10 @@ const SpeechRecognition: React.FC<SpeechRecognitionProps> = ({
         }
       };
     }
-  }, [onRecordingComplete]);
+  }, [onRecordingComplete, onTranscriptUpdate]);
 
   const handleStartRecording = () => {
     if (recognitionRef.current) {
-      setTranscript('');
       recognitionRef.current.start();
       onStartRecording();
     }

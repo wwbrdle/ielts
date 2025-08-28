@@ -858,18 +858,9 @@ function App() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [similarityScore, setSimilarityScore] = useState<number | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
-  const [showSampleAnswer, setShowSampleAnswer] = useState<boolean>(false);
 
-  const handleQuestionChange = (questionId: number) => {
-    const question = sampleQuestions.find(q => q.id === questionId);
-    if (question) {
-      setCurrentQuestion(question);
-      setUserAnswer('');
-      setSimilarityScore(null);
-      setShowResult(false);
-      setShowSampleAnswer(false);
-    }
-  };
+
+
 
   const getRandomQuestion = () => {
     if (currentPart === 'part1') {
@@ -884,7 +875,6 @@ function App() {
     setUserAnswer('');
     setSimilarityScore(null);
     setShowResult(false);
-    setShowSampleAnswer(false);
   };
 
   const handleRecordingComplete = (transcript: string) => {
@@ -922,7 +912,6 @@ function App() {
               setCurrentTranscript('');
               setSimilarityScore(null);
               setShowResult(false);
-              setShowSampleAnswer(false);
             }} 
             className={`part-button ${currentPart === 'part1' ? 'active' : ''}`}
           >
@@ -935,7 +924,6 @@ function App() {
               setCurrentTranscript('');
               setSimilarityScore(null);
               setShowResult(false);
-              setShowSampleAnswer(false);
             }} 
             className={`part-button ${currentPart === 'part2' ? 'active' : ''}`}
           >
