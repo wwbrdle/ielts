@@ -20,7 +20,7 @@ sudo apt-get install -y nodejs
 
 # Nginx 설정
 echo "🌐 Nginx 설정 중..."
-sudo mkdir -p /var/www/ielts-app
+sudo mkdir -p /var/www/ielts-app/build
 sudo chown -R $USER:$USER /var/www/ielts-app
 
 # Nginx 설정 파일 복사

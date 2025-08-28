@@ -27,11 +27,11 @@ jobs:
         
     - name: Create deployment package
       run: |
-        tar -czf dist.tar.gz dist/
+        tar -czf build.tar.gz build/
         
     - name: Copy files to server
       run: |
-        scp -i ${{ secrets.ORACLE_SSH_KEY }} -P ${{ secrets.ORACLE_PORT }} -o StrictHostKeyChecking=no dist.tar.gz ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/tmp/
+        scp -i ${{ secrets.ORACLE_SSH_KEY }} -P ${{ secrets.ORACLE_PORT }} -o StrictHostKeyChecking=no build.tar.gz ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/tmp/
         
     - name: Extract and deploy
       uses: appleboy/ssh-action@v1.0.0
@@ -45,17 +45,17 @@ jobs:
           cd /var/www/ielts-app
           
           # 기존 파일 백업
-          sudo cp -r dist dist.backup.$(date +%Y%m%d_%H%M%S) || true
+          sudo cp -r build build.backup.$(date +%Y%m%d_%H%M%S) || true
           
           # 새 빌드 파일 압축 해제
-          sudo rm -rf dist
-          sudo mkdir -p dist
-          sudo tar -xzf /tmp/dist.tar.gz -C /var/www/ielts-app/
-          sudo rm /tmp/dist.tar.gz
+          sudo rm -rf build
+          sudo mkdir -p build
+          sudo tar -xzf /tmp/build.tar.gz -C /var/www/ielts-app/
+          sudo rm /tmp/build.tar.gz
           
           # 권한 설정
-          sudo chown -R www-data:www-data /var/www/ielts-app/dist
-          sudo chmod -R 755 /var/www/ielts-app/dist
+          sudo chown -R www-data:www-data /var/www/ielts-app/build
+          sudo chmod -R 755 /var/www/ielts-app/build
           
           # Nginx 재시작
           sudo systemctl restart nginx
