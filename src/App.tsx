@@ -814,6 +814,7 @@ const sampleQuestions: Question[] = [
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState<Question>(sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)]);
   const [userAnswer, setUserAnswer] = useState<string>('');
+  const [currentTranscript, setCurrentTranscript] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [similarityScore, setSimilarityScore] = useState<number | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
@@ -842,6 +843,7 @@ function App() {
 
   const handleRecordingComplete = (transcript: string) => {
     setUserAnswer(transcript);
+    setCurrentTranscript('');
     setIsRecording(false);
   };
 
@@ -863,7 +865,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>🎤 IELTS 스피킹 연습</h1>
-        <p>음성 인식으로 답변을 녹음하고 모범 답안과 비교해보세요!</p>
       </header>
       
       <main className="App-main">
@@ -871,21 +872,31 @@ function App() {
           <button onClick={getRandomQuestion} className="random-button">
             🎲 랜덤 문제 선택
           </button>
-          <button onClick={() => getRandomQuestion()} className="next-button">
-            ⏭️ 다음 문제
-          </button>
         </div>
 
         <QuestionCard question={currentQuestion} />
         
         <SpeechRecognition
           isRecording={isRecording}
-          onStartRecording={() => setIsRecording(true)}
+          onStartRecording={() => {
+            setIsRecording(true);
+            setCurrentTranscript('');
+          }}
           onStopRecording={() => setIsRecording(false)}
           onRecordingComplete={handleRecordingComplete}
+          onTranscriptUpdate={setCurrentTranscript}
         />
 
-        {userAnswer && (
+        {isRecording && (
+          <div className="user-answer">
+            <h3>🎤 실시간 음성 인식:</h3>
+            <p style={{ fontStyle: 'italic', color: '#666' }}>
+              {currentTranscript || '음성을 인식하고 있습니다...'}
+            </p>
+          </div>
+        )}
+
+                {userAnswer && !isRecording && (
           <div className="user-answer">
             <h3>🎤 당신의 답변:</h3>
             <p>{userAnswer}</p>

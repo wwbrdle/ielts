@@ -6,15 +6,17 @@ interface SpeechRecognitionProps {
   onStartRecording: () => void;
   onStopRecording: () => void;
   onRecordingComplete: (transcript: string) => void;
+  onTranscriptUpdate: (transcript: string) => void;
 }
 
 const SpeechRecognition: React.FC<SpeechRecognitionProps> = ({
   isRecording,
   onStartRecording,
   onStopRecording,
-  onRecordingComplete
+  onRecordingComplete,
+  onTranscriptUpdate
 }) => {
-  const [transcript] = useState<string>('');
+  const [transcript, setTranscript] = useState<string>('');
   const [isSupported, setIsSupported] = useState<boolean>(false);
   const recognitionRef = useRef<any>(null);
 
@@ -30,13 +32,27 @@ const SpeechRecognition: React.FC<SpeechRecognitionProps> = ({
 
       recognitionRef.current.onresult = (event: any) => {
         let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
+        let interimTranscript = '';
+        
+        // event.results의 모든 결과를 순회하면서 transcript를 구성
+        for (let i = 0; i < event.results.length; i++) {
           if (event.results[i].isFinal) {
             finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
           }
         }
+        
+        // 전체 transcript를 누적하여 업데이트
+        setTranscript(prevTranscript => {
+          const newTranscript = prevTranscript + finalTranscript + interimTranscript;
+          // 실시간으로 전체 transcript를 부모 컴포넌트로 전달
+          onTranscriptUpdate(newTranscript);
+          return newTranscript;
+        });
+        
+        // 최종 결과가 있을 때만 onRecordingComplete 호출
         if (finalTranscript) {
-          setTranscript(finalTranscript);
           onRecordingComplete(finalTranscript);
         }
       };
