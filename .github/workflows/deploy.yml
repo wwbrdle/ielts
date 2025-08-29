@@ -78,16 +78,38 @@ jobs:
           # 서버 초기 설정
           echo "Setting up server environment..."
           
+          # Linux 배포판 확인
+          if [ -f /etc/os-release ]; then
+            . /etc/os-release
+            echo "Detected OS: $ID $VERSION_ID"
+          fi
+          
           # 필요한 디렉토리 생성
           sudo mkdir -p /var/www/ielts-app
           sudo chown -R $USER:$USER /var/www/ielts-app
           
-          # Nginx 설치 확인 및 설치
+          # Nginx 설치 확인 및 설치 (여러 배포판 지원)
           if ! command -v nginx &> /dev/null; then
             echo "Installing Nginx..."
-            sudo apt update
-            sudo apt install -y nginx
-            sudo systemctl enable nginx
+            
+            if command -v apt &> /dev/null; then
+              # Ubuntu/Debian
+              sudo apt update
+              sudo apt install -y nginx
+              sudo systemctl enable nginx
+            elif command -v yum &> /dev/null; then
+              # CentOS/RHEL/Oracle Linux 7
+              sudo yum install -y epel-release
+              sudo yum install -y nginx
+              sudo systemctl enable nginx
+            elif command -v dnf &> /dev/null; then
+              # CentOS/RHEL/Oracle Linux 8+
+              sudo dnf install -y nginx
+              sudo systemctl enable nginx
+            else
+              echo "ERROR: Unsupported package manager"
+              exit 1
+            fi
           fi
           
           # www-data 사용자 확인 및 생성
@@ -112,8 +134,11 @@ jobs:
           sudo chown -R www-data:www-data /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
           
-          # Nginx 설정 파일 생성
-          sudo tee /etc/nginx/sites-available/ielts-app > /dev/null <<EOF
+          # Nginx 디렉토리 생성 (배포판별)
+          if [ -d "/etc/nginx/sites-available" ]; then
+            # Ubuntu/Debian 스타일
+            sudo mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
+            sudo tee /etc/nginx/sites-available/ielts-app > /dev/null <<EOF
           server {
               listen 80;
               server_name _;
@@ -126,10 +151,25 @@ jobs:
               }
           }
           EOF
-          
-          # Nginx 사이트 활성화
-          sudo ln -sf /etc/nginx/sites-available/ielts-app /etc/nginx/sites-enabled/
-          sudo rm -f /etc/nginx/sites-enabled/default
+            sudo ln -sf /etc/nginx/sites-available/ielts-app /etc/nginx/sites-enabled/
+            sudo rm -f /etc/nginx/sites-enabled/default
+          else
+            # CentOS/RHEL/Oracle Linux 스타일
+            sudo mkdir -p /etc/nginx/conf.d
+            sudo tee /etc/nginx/conf.d/ielts-app.conf > /dev/null <<EOF
+          server {
+              listen 80;
+              server_name _;
+              
+              root /var/www/ielts-app/build;
+              index index.html;
+              
+              location / {
+                  try_files \$uri \$uri/ /index.html;
+              }
+          }
+          EOF
+          fi
           
           # Nginx 설정 테스트 및 재시작
           sudo nginx -t
