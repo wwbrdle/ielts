@@ -98,6 +98,25 @@ jobs:
           sudo chown -R opc:opc /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
           
-          echo "React app deployed successfully!"
+          # 기존 웹서버 프로세스 종료
+          echo "Stopping existing web server..."
+          sudo pkill -f "python3 -m http.server" || true
+          
+          # 새 웹서버 백그라운드 실행
+          echo "Starting new web server..."
+          cd /var/www/ielts-app
+          nohup python3 -m http.server 8080 --directory build > /dev/null 2>&1 &
+          
+          # 웹서버 상태 확인
+          sleep 2
+          if pgrep -f "python3 -m http.server" > /dev/null; then
+            echo "Web server started successfully!"
+            echo "React app is now accessible at: http://$(curl -s ifconfig.me):8080"
+          else
+            echo "Failed to start web server"
+            exit 1
+          fi
+          
+          echo "React app deployed and running successfully!"
           echo "Files are available at: /var/www/ielts-app/build"
-          echo "To serve the app, run: cd /var/www/ielts-app && python3 -m http.server 80 --directory build"
+          echo "Web server is running on port 8080"
