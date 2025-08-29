@@ -78,45 +78,59 @@ jobs:
           # React 앱 배포
           echo "Deploying React app..."
           
-          # 앱 디렉토리 생성
+          # 각 단계별 상세 로그
+          echo "Step 1: Creating app directory..."
           sudo mkdir -p /var/www/ielts-app
           sudo chown -R opc:opc /var/www/ielts-app
+          echo "Directory created: $(ls -la /var/www/ielts-app/)"
           
           # 앱 디렉토리로 이동
           cd /var/www/ielts-app
+          echo "Current directory: $(pwd)"
           
           # 기존 파일 백업
-          sudo cp -r build build.backup.$(date +%Y%m%d_%H%M%S) || true
+          echo "Step 2: Backing up existing files..."
+          sudo cp -r build build.backup.$(date +%Y%m%d_%H%M%S) || echo "No existing build to backup"
           
           # 새 빌드 파일 압축 해제
+          echo "Step 3: Extracting new build files..."
           sudo rm -rf build
           sudo mkdir -p build
+          echo "Build directory created: $(ls -la build/)"
+          
+          echo "Extracting build.tar.gz..."
           sudo tar -xzf /tmp/build.tar.gz -C /var/www/ielts-app/
+          echo "Extraction completed. Build contents: $(ls -la build/)"
           sudo rm /tmp/build.tar.gz
           
           # 권한 설정
+          echo "Step 4: Setting permissions..."
           sudo chown -R opc:opc /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
+          echo "Permissions set: $(ls -la build/)"
           
           # 기존 웹서버 프로세스 종료
-          echo "Stopping existing web server..."
-          sudo pkill -f "python3 -m http.server" || true
+          echo "Step 5: Stopping existing web server..."
+          sudo pkill -f "python3 -m http.server" || echo "No existing web server to stop"
           
           # 새 웹서버 백그라운드 실행
-          echo "Starting new web server..."
+          echo "Step 6: Starting new web server..."
           cd /var/www/ielts-app
           nohup python3 -m http.server 8080 --directory build > /dev/null 2>&1 &
           
           # 웹서버 상태 확인
-          sleep 2
+          echo "Step 7: Verifying web server..."
+          sleep 3
           if pgrep -f "python3 -m http.server" > /dev/null; then
-            echo "Web server started successfully!"
-            echo "React app is now accessible at: http://$(curl -s ifconfig.me):8080"
+            echo "✅ Web server started successfully!"
+            echo "🌐 React app is now accessible at: http://$(curl -s ifconfig.me):8080"
           else
-            echo "Failed to start web server"
+            echo "❌ Failed to start web server"
+            echo "Debug info:"
+            ps aux | grep python3
             exit 1
           fi
           
-          echo "React app deployed and running successfully!"
-          echo "Files are available at: /var/www/ielts-app/build"
-          echo "Web server is running on port 8080"
+          echo "🎉 React app deployed and running successfully!"
+          echo "📁 Files are available at: /var/www/ielts-app/build"
+          echo "🚀 Web server is running on port 8080"
