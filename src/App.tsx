@@ -900,7 +900,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🎤 IELTS 스피킹 연습</h1>
+        <h1>🎤 IELTS 스피킹 연습1</h1>
       </header>
       
       <main className="App-main">
