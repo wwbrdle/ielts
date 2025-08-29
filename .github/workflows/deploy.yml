@@ -112,7 +112,7 @@ jobs:
           echo "📁 Files are available at: /var/www/ielts-app/build"
           echo "🚀 Ready to start web server in next step"
           
-    - name: Start web server
+    - name: Setup and start web server
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.ORACLE_HOST }}
@@ -122,25 +122,49 @@ jobs:
         timeout: 30s
         command_timeout: 2m
         script: |
-          echo "🚀 Starting web server..."
+          echo "🚀 Setting up web server service..."
           
           # 기존 웹서버 프로세스 종료
           sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
-          sleep 1
           
-          # 웹서버 시작
-          cd /var/www/ielts-app
-          nohup python3 -m http.server 8080 --directory build > /dev/null 2>&1 &
+          # systemd 서비스 파일 생성
+          echo "Creating systemd service..."
+          sudo tee /etc/systemd/system/ielts-app.service > /dev/null <<EOF
+          [Unit]
+          Description=IELTS App Web Server
+          After=network.target
           
-          # 상태 확인
-          sleep 2
-          if pgrep -f "python3 -m http.server" > /dev/null; then
-            echo "✅ Web server started successfully!"
+          [Service]
+          Type=simple
+          User=opc
+          WorkingDirectory=/var/www/ielts-app
+          ExecStart=/usr/bin/python3 -m http.server 8080 --directory build
+          Restart=always
+          RestartSec=3
+          
+          [Install]
+          WantedBy=multi-user.target
+          EOF
+          
+          # 서비스 활성화 및 시작
+          echo "Enabling and starting service..."
+          sudo systemctl daemon-reload
+          sudo systemctl enable ielts-app
+          sudo systemctl start ielts-app
+          
+          # 서비스 상태 확인
+          sleep 3
+          if sudo systemctl is-active --quiet ielts-app; then
+            echo "✅ Web server service started successfully!"
             echo "🌐 React app is now accessible at: http://$(curl -s ifconfig.me):8080"
+            echo "🔧 Service status: $(sudo systemctl status ielts-app --no-pager -l | head -5)"
           else
-            echo "❌ Failed to start web server"
+            echo "❌ Failed to start web server service"
+            echo "Service logs:"
+            sudo journalctl -u ielts-app --no-pager -l | tail -10
             exit 1
           fi
           
-          echo "🎉 Web server is running on port 8080"
+          echo "🎉 Web server is running automatically on port 8080!"
           echo "🌐 Access your app at: http://$(curl -s ifconfig.me):8080"
+          echo "💡 The service will automatically restart if it crashes or after reboot"
