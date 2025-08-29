@@ -128,7 +128,7 @@ jobs:
           ls -la /var/www/ielts-app/
           
           echo "Step 2: Stopping existing web server processes..."
-          sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
+          sudo pkill -f "python3 -m http.server" || true
           echo "Processes after kill:"
           ps aux | grep "python3 -m http.server" || echo "No python http.server processes found"
           
