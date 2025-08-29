@@ -54,8 +54,14 @@ jobs:
         ls -la ~/.ssh/
         eval "$(ssh-agent -s)"
         ssh-add ~/.ssh/id_rsa
+        echo "Running ssh-keyscan..."
         ssh-keyscan -H ${{ secrets.ORACLE_HOST }} >> ~/.ssh/known_hosts
         echo "SSH setup completed"
+        
+        # SSH 연결 테스트
+        echo "Testing SSH connection..."
+        ssh -o ConnectTimeout=10 -o BatchMode=yes ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }} "echo 'SSH connection successful'"
+        echo "SSH test completed"
         
     - name: Copy files to server
       run: |
