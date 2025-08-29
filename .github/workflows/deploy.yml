@@ -75,6 +75,27 @@ jobs:
         key: ${{ secrets.ORACLE_SSH_KEY }}
         port: ${{ secrets.ORACLE_PORT }}
         script: |
+          # 서버 초기 설정
+          echo "Setting up server environment..."
+          
+          # 필요한 디렉토리 생성
+          sudo mkdir -p /var/www/ielts-app
+          sudo chown -R $USER:$USER /var/www/ielts-app
+          
+          # Nginx 설치 확인 및 설치
+          if ! command -v nginx &> /dev/null; then
+            echo "Installing Nginx..."
+            sudo apt update
+            sudo apt install -y nginx
+            sudo systemctl enable nginx
+          fi
+          
+          # www-data 사용자 확인 및 생성
+          if ! id "www-data" &>/dev/null; then
+            echo "Creating www-data user..."
+            sudo useradd -r -s /bin/false www-data
+          fi
+          
           # 앱 디렉토리로 이동
           cd /var/www/ielts-app
           
@@ -91,7 +112,27 @@ jobs:
           sudo chown -R www-data:www-data /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
           
-          # Nginx 재시작
+          # Nginx 설정 파일 생성
+          sudo tee /etc/nginx/sites-available/ielts-app > /dev/null <<EOF
+          server {
+              listen 80;
+              server_name _;
+              
+              root /var/www/ielts-app/build;
+              index index.html;
+              
+              location / {
+                  try_files \$uri \$uri/ /index.html;
+              }
+          }
+          EOF
+          
+          # Nginx 사이트 활성화
+          sudo ln -sf /etc/nginx/sites-available/ielts-app /etc/nginx/sites-enabled/
+          sudo rm -f /etc/nginx/sites-enabled/default
+          
+          # Nginx 설정 테스트 및 재시작
+          sudo nginx -t
           sudo systemctl restart nginx
           
           echo "Deployment completed successfully!"
