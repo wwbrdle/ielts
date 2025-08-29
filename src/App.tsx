@@ -18,6 +18,13 @@ interface Part2Question {
   subQuestions: string[];
   sampleAnswer: string;
   category: string;
+  part3Questions: Part3Question[];
+}
+
+interface Part3Question {
+  id: number;
+  question: string;
+  sampleAnswer: string;
 }
 
 const sampleQuestions: Question[] = [
@@ -832,7 +839,24 @@ const part2Questions: Part2Question[] = [
       "and explain why you like it"
     ],
     sampleAnswer: "One type of weather I really enjoy is hot and sunny weather. Bright sunshine and warm temperatures always put me in a good mood.\n\nI usually experience this weather when I visit Miami, Florida, which is famous for its beaches and tropical climate. The sun is almost always shining there, and the warmth near the ocean feels very inviting.\n\nDuring this weather, I love swimming, relaxing by the water, or fishing with friends. It's a perfect way to enjoy the outdoors and the lively atmosphere of the city.\n\nI like hot and sunny weather because it makes me feel energetic and carefree. I can wear light clothes comfortably, spend time outdoors, and it just leaves me with happy memories.",
-    category: "Part 2 - Weather"
+    category: "Part 2 - Weather",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What kinds of weather do people in your country like?",
+        sampleAnswer: "In my country, people generally prefer mild weather. Most people enjoy spring and autumn because the temperature is comfortable and pleasant. However, some people also like summer for outdoor activities like swimming and hiking."
+      },
+      {
+        id: 2,
+        question: "Do you think weather affects people's mood?",
+        sampleAnswer: "Yes, I think weather definitely affects people's mood. When it's sunny and warm, people tend to be more cheerful and energetic. On the other hand, when it's rainy or cloudy for many days, people might feel a bit down or less motivated."
+      },
+      {
+        id: 3,
+        question: "How has the weather changed in recent years?",
+        sampleAnswer: "I think the weather has become more unpredictable in recent years. We're experiencing more extreme weather conditions, like hotter summers and more frequent heavy rain. This might be related to climate change."
+      }
+    ]
   },
   {
     id: 2,
@@ -845,7 +869,229 @@ const part2Questions: Part2Question[] = [
       "and explain why you would like to visit this place"
     ],
     sampleAnswer: "A place I would really like to visit is Japan, specifically Tokyo. I've always been fascinated by Japanese culture, technology, and cuisine.\n\nI know about this place through various sources - documentaries, travel shows, and friends who have visited. I've also read about its rich history and modern innovations.\n\nIf I could visit, I would explore the traditional temples and shrines, try authentic Japanese food like sushi and ramen, visit the famous Shibuya crossing, and experience the unique blend of old and new that Tokyo offers.\n\nI want to visit Japan because it represents the perfect balance between preserving tradition and embracing innovation. The culture seems so different from what I'm used to, and I think it would be an eye-opening experience.",
-    category: "Part 2 - Place"
+    category: "Part 2 - Place",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What kinds of places do people in your country like to visit?",
+        sampleAnswer: "People in my country generally like to visit places with beautiful nature, such as mountains, beaches, and national parks. They also enjoy visiting historical sites and cultural landmarks. Recently, many people are also interested in visiting trendy cafes and restaurants."
+      },
+      {
+        id: 2,
+        question: "Do you think it's better to travel alone or with others?",
+        sampleAnswer: "I think both have their advantages. Traveling alone gives you more freedom and flexibility to do exactly what you want. However, traveling with others can be more fun and safer, especially in unfamiliar places. It also allows you to share experiences and create memories together."
+      },
+      {
+        id: 3,
+        question: "How has tourism changed in recent years?",
+        sampleAnswer: "Tourism has changed significantly in recent years. Technology has made it easier to plan trips with online booking and travel apps. Social media has also influenced where people want to visit. However, the COVID-19 pandemic has had a major impact on international travel."
+      }
+    ]
+  },
+  {
+    id: 3,
+    topic: "People",
+    mainQuestion: "Describe a person, much older than you, who you admire",
+    subQuestions: [
+      "Who this person is",
+      "How you know this person",
+      "What kinds of things you like to do together",
+      "And explain why you admire this person"
+    ],
+    sampleAnswer: "The person I admire is the Queen Elizabeth II of the UK. She just turned to 90 years old this year, and she has been the queen of England for the longest period, 63 years altogether.\n\nThe queen visited Korea in 1999, when I was a child. It was big news for Korean people, and I watched news programmes on TV while she was staying in Korea. After that, I went to study in England, and read news, books, and journals about her and royal family so I got to know her more.\n\nWell, to be honest, I'd like to ask her some questions like how she feels, what her hobbies are - just ordinary stuff like I'm talking to my friend. Maybe we could have some tea, and talk to each other if possible.\n\nI admire her because she spent all of her life-time as the queen. I heard that she didn't want to be the queen of England when she was young as the role is a big burden for her. However after all, she did a great job to make England as one of the most powerful countries in the world. Also I think she is not afraid of trying new things out, which I am weak at. An article I read showed a picture of her using iPhone, and she is an early-adapter. It was quite surprising for me as I thought she would only respect tradition. I think that she is very open to new things. That's probably why she is beloved by many people.",
+    category: "Part 2 - People",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What kinds of people are most likely to choose to travel by plane?",
+        sampleAnswer: "I think business people are most likely to choose to travel by plane because they need to save time and travel frequently. Also, people who can afford it and want convenience often choose planes. Some people who are afraid of other transportation methods also prefer planes."
+      },
+      {
+        id: 2,
+        question: "What do you think about travelling by plane?",
+        sampleAnswer: "I think travelling by plane has both advantages and disadvantages. The obvious advantages are speed and convenience - you can travel long distances quickly. However, it can be expensive, and some people feel uncomfortable with the security procedures and potential delays."
+      },
+      {
+        id: 3,
+        question: "What are the advantages and disadvantages of living near an airport?",
+        sampleAnswer: "Living near an airport has advantages like easy access to travel and often good transport connections. However, there are disadvantages like noise pollution from planes taking off and landing, and sometimes air pollution. Also, the area might be more expensive to live in."
+      }
+    ]
+  },
+  {
+    id: 4,
+    topic: "Plane",
+    mainQuestion: "Describe a person (you know) that you would like to meet in the news",
+    subQuestions: [
+      "Who this person is",
+      "What he or she does",
+      "How you know this person",
+      "And explain why you want to meet them"
+    ],
+    sampleAnswer: "A person I would like to meet from the news is Elon Musk. He is the CEO of Tesla and SpaceX, and he's known for his innovative work in electric cars and space exploration.\n\nI know about him through various news sources, social media, and documentaries. I've been following his work for several years, especially his efforts to make electric vehicles more accessible and his ambitious plans for Mars colonization.\n\nI would like to meet him because I'm fascinated by his vision for the future and his ability to turn ambitious ideas into reality. I think he would have interesting insights about technology, innovation, and the future of transportation and space travel. It would be amazing to hear his thoughts firsthand and ask him about his future plans.",
+    category: "Part 2 - Plane",
+    part3Questions: [
+      {
+        id: 1,
+        question: "Do you think planes will have a negative influence in your country?",
+        sampleAnswer: "Yes, it could have a negative impact. Yes, it might lead to severe effects, such as increased crime. Obsession with celebrities could cause depression. Some, especially business people, prefer traveling abroad."
+      },
+      {
+        id: 2,
+        question: "What kinds of people are most likely to choose to travel by plane?",
+        sampleAnswer: "Newly married couples or those with specific preferences. Famous actors or global celebrities. And explain why they choose planes (e.g., time-saving)."
+      },
+      {
+        id: 3,
+        question: "Have you ever been to the UK?",
+        sampleAnswer: "Some get travel opportunities, which can be intriguing. Discuss pros and cons of transport options. It's a complex question to address fully."
+      },
+      {
+        id: 4,
+        question: "What kinds of news are popular in your country?",
+        sampleAnswer: "Celebrity news tends to draw attention. Stories about celebrities are widely followed. Interest in lives of those traveling to the USA or UK."
+      },
+      {
+        id: 5,
+        question: "What do you think about traveling by plane?",
+        sampleAnswer: "Highlight the clear advantages of plane travel. Some travel for convenience, though it may not always feel typical. It can be time-consuming, with visits to other locations for various reasons."
+      }
+    ]
+  },
+  {
+    id: 5,
+    topic: "Celebrity/News",
+    mainQuestion: "Describe a celebrity you admire",
+    subQuestions: [
+      "Who this person is",
+      "What they are famous for",
+      "How you know about them",
+      "And explain why you admire them"
+    ],
+    sampleAnswer: "A celebrity I really admire is Tom Hanks. He is one of the most respected actors in Hollywood, known for his versatile performances in films like Forrest Gump, Cast Away, and The Green Mile.\n\nI know about him through his movies, interviews, and various media appearances. I've been watching his films since I was a child, and I've always been impressed by his ability to portray such diverse characters convincingly.\n\nI admire him because he seems like a genuinely good person both on and off screen. He's known for his professionalism, kindness, and positive attitude. Despite his fame, he appears to be humble and down-to-earth. I also respect his work ethic and the way he chooses meaningful projects that often have positive messages.",
+    category: "Part 2 - Celebrity/News",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What's the difference between broadcasting news in the past and in the present?",
+        sampleAnswer: "Compare broadcasting with the press. Interesting news often takes precedence. Examples like USA and Canada business contexts."
+      },
+      {
+        id: 2,
+        question: "Why do you think people are so interested in celebrities' lives?",
+        sampleAnswer: "Interest may grow from hearing about them during plane trips. Famous people offer more details to explore. The time spent learning about them adds to the fascination."
+      },
+      {
+        id: 3,
+        question: "What methods do you use to get news?",
+        sampleAnswer: "Desire to meet someone due to their life story. Travel time example: Seoul to Busan (up to 3 hours). Compare plane travel with buses or trains."
+      },
+      {
+        id: 4,
+        question: "Do you believe everything said in the news?",
+        sampleAnswer: "Not fully; skepticism is common. Shopping facilities near airports are notable. Censored or suppressed information by authorities."
+      },
+      {
+        id: 5,
+        question: "What are the advantages and disadvantages of living near an airport?",
+        sampleAnswer: "Access to a dynamic environment is a plus. Noise pollution is a significant downside."
+      },
+      {
+        id: 6,
+        question: "Why do some people not watch TV news nowadays?",
+        sampleAnswer: "It may feel irrelevant or far removed. Meeting an admired person could be more exciting. Preference for certain films or roles shapes preferences."
+      }
+    ]
+  },
+  {
+    id: 6,
+    topic: "The News",
+    mainQuestion: "Describe a news story that interested you",
+    subQuestions: [
+      "What the news was about",
+      "When you heard about it",
+      "How you found out about it",
+      "And explain why it interested you"
+    ],
+    sampleAnswer: "A news story that really interested me was about the successful landing of NASA's Perseverance rover on Mars in 2021. This was a major achievement in space exploration.\n\nI heard about this news in February 2021 when it was all over the media. It was a significant milestone in space exploration, and I was fascinated by the technology and engineering involved.\n\nI found out about it through various news sources, including social media, news websites, and television coverage. The story was everywhere because it was such a remarkable achievement.\n\nThis news interested me because I've always been fascinated by space exploration and the possibility of finding evidence of life on other planets. The technology involved in landing a rover on Mars is incredibly complex, and I was amazed by the scientists' ability to accomplish this feat. It also made me think about the future of space travel and what other discoveries might be possible.",
+    category: "Part 2 - The News",
+    part3Questions: [
+      {
+        id: 1,
+        question: "Do you think the news will have a negative influence?",
+        sampleAnswer: "Yes, negative news can impact people. Watching TV news might lead to depression. Curiosity about celebrities drives interest."
+      },
+      {
+        id: 2,
+        question: "What kinds of news do you think are popular in your country?",
+        sampleAnswer: "Celebrity news is generally popular. People are keen to know about others' lives. Excessive news coverage influences various aspects."
+      },
+      {
+        id: 3,
+        question: "What's the difference between the news in the past and the present?",
+        sampleAnswer: "Compare broadcasting with the press. Interesting news often comes first. Examples like USA and Canada business contexts."
+      },
+      {
+        id: 4,
+        question: "Why do you think people are so interested in news?",
+        sampleAnswer: "Interest may stem from plane travel experiences. Famous people provide more details to explore. The time investment adds to the appeal."
+      },
+      {
+        id: 5,
+        question: "What methods do you use to get news nowadays?",
+        sampleAnswer: "Desire to meet someone based on their life story. Travel time example: Seoul to Busan (up to 3 hours). Comparisons between plane, bus, or train travel."
+      },
+      {
+        id: 6,
+        question: "Do you believe everything said in the news?",
+        sampleAnswer: "Not fully; trust varies. Shopping facilities near airports are a feature. Censorship by authorities can affect content."
+      },
+      {
+        id: 7,
+        question: "What are the advantages and disadvantages of living near an airport?",
+        sampleAnswer: "Access to a dynamic environment is a plus. Noise pollution is a significant downside."
+      },
+      {
+        id: 8,
+        question: "Why do some people not watch TV news nowadays?",
+        sampleAnswer: "It may feel irrelevant or far removed. Meeting an admired person could be more exciting. Preference for certain films or roles shapes preferences."
+      }
+    ]
+  },
+  {
+    id: 7,
+    topic: "Foreign Language",
+    mainQuestion: "Describe a foreign language you would like to learn",
+    subQuestions: [
+      "What language it is",
+      "How you would learn it",
+      "Why you want to learn it",
+      "And explain how it would be useful for you"
+    ],
+    sampleAnswer: "A foreign language I would really like to learn is Spanish. I think it's a beautiful and widely spoken language that would open up many opportunities for me.\n\nI would learn it through various methods - taking formal classes, using language learning apps, watching Spanish movies and TV shows, and practicing with native speakers. I believe immersion is the best way to learn a language effectively.\n\nI want to learn Spanish because it's spoken by millions of people around the world, especially in many countries in Latin America and Spain. It would be incredibly useful for travel, business, and cultural exchange.\n\nLearning Spanish would be very useful for me because it would enhance my career prospects, especially if I work in international business or tourism. It would also allow me to communicate with Spanish-speaking communities and understand their culture better.",
+    category: "Part 2 - Foreign Language",
+    part3Questions: [
+      {
+        id: 1,
+        question: "Do many people in your country learn a foreign language?",
+        sampleAnswer: "Yes, definitely. English is the most popular one among Korean people, but they learn some other languages like Japanese, Chinese, and so on. Many people tend to learn foreign languages due to different purposes."
+      },
+      {
+        id: 2,
+        question: "Can you explain why people learn foreign languages?",
+        sampleAnswer: "In my opinion, people learn foreign languages in order to migrate or study in different country. For example, more Korean people tend to learn English in order to study abroad or for migration. Also they have to learn second language because of business purposes or for their own interests in a particular culture."
+      },
+      {
+        id: 3,
+        question: "Some people say that primary school is the best time to start learning a new language. Do you agree?",
+        sampleAnswer: "Yes, I absolutely agree. Some people say children should start learning new language as young as they can, but I think nursery children should learn their own language first, and then start to learn new language when they go into primary school. They are still capable to adapt new knowledge quickly."
+      },
+      {
+        id: 4,
+        question: "What age do you think is better for a person to begin to learn a new language?",
+        sampleAnswer: "Maybe around 6 or 7 years old, I believe. It's true that children absorb knowledge much faster and adapt a lot of useful information when learning something including languages than adults. But I personally think they shouldn't start learning two different languages at once until they reach the age of 6 or 7 as they can easily get mixed up with all new information."
+      }
+    ]
   }
 ];
 
@@ -900,7 +1146,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🎤 IELTS 스피킹 연습1</h1>
+        <h1>🎤 IELTS 스피킹 연습</h1>
       </header>
       
       <main className="App-main">
@@ -950,6 +1196,22 @@ function App() {
                   <li key={index}>{subQ}</li>
                 ))}
               </ul>
+            </div>
+            
+            <div className="part3-section">
+              <h4>Part 3 - Follow-up Questions</h4>
+              <div className="part3-questions">
+                {currentPart2Question.part3Questions.map((part3Q, index) => (
+                  <div key={index} className="part3-question">
+                    <h5>Question {index + 1}:</h5>
+                    <p className="question-text">{part3Q.question}</p>
+                    <details className="sample-answer">
+                      <summary>Sample Answer</summary>
+                      <p>{part3Q.sampleAnswer}</p>
+                    </details>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
