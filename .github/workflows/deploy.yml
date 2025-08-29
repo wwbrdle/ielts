@@ -74,6 +74,8 @@ jobs:
         username: ${{ secrets.ORACLE_USERNAME }}
         key: ${{ secrets.ORACLE_SSH_KEY }}
         port: ${{ secrets.ORACLE_PORT }}
+        timeout: 60s
+        command_timeout: 10m
         script: |
           # React 앱 배포
           echo "Deploying React app..."
@@ -109,53 +111,28 @@ jobs:
           sudo chmod -R 755 /var/www/ielts-app/build
           echo "Permissions set: $(ls -la build/)"
           
-          # 웹서버 자동 실행
+          # 웹서버 자동 실행 (간소화)
           echo "🚀 Starting web server automatically..."
           
           # 기존 웹서버 프로세스 종료
           echo "Stopping existing web server processes..."
           sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
-          sleep 2
+          sleep 1
           
           # 웹서버 시작
           echo "Starting new web server on port 8080..."
           cd /var/www/ielts-app
           
           # 백그라운드에서 웹서버 실행
-          nohup python3 -m http.server 8080 --directory build > web_server.log 2>&1 &
-          WEB_SERVER_PID=$!
+          nohup python3 -m http.server 8080 --directory build > /dev/null 2>&1 &
           
-          # 웹서버 시작 확인
-          echo "Waiting for web server to start..."
-          sleep 3
-          
-          # 프로세스 상태 확인
-          if ps -p $WEB_SERVER_PID > /dev/null; then
-            echo "✅ Web server started successfully with PID: $WEB_SERVER_PID"
-            
-            # 포트 리스닝 확인
-            if netstat -tlnp 2>/dev/null | grep ":8080" > /dev/null; then
-              echo "✅ Port 8080 is listening"
-              echo "🌐 React app is now accessible at: http://$(curl -s ifconfig.me):8080"
-            else
-              echo "⚠️ Web server process is running but port 8080 is not listening yet"
-              echo "Waiting a bit more..."
-              sleep 2
-              if netstat -tlnp 2>/dev/null | grep ":8080" > /dev/null; then
-                echo "✅ Port 8080 is now listening"
-                echo "🌐 React app is accessible at: http://$(curl -s ifconfig.me):8080"
-              else
-                echo "❌ Port 8080 is still not listening"
-                echo "Web server log:"
-                tail -10 web_server.log
-              fi
-            fi
+          # 간단한 상태 확인
+          sleep 2
+          if pgrep -f "python3 -m http.server" > /dev/null; then
+            echo "✅ Web server started successfully!"
+            echo "🌐 React app is now accessible at: http://$(curl -s ifconfig.me):8080"
           else
             echo "❌ Failed to start web server"
-            echo "Web server log:"
-            cat web_server.log
-            echo "Process status:"
-            ps aux | grep python3
             exit 1
           fi
           
