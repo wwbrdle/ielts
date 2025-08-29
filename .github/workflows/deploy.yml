@@ -112,11 +112,8 @@ jobs:
             fi
           fi
           
-          # www-data 사용자 확인 및 생성
-          if ! id "www-data" &>/dev/null; then
-            echo "Creating www-data user..."
-            sudo useradd -r -s /bin/false www-data
-          fi
+          # Oracle Linux에서는 opc 사용자 사용
+          echo "Using existing opc user for Oracle Linux"
           
           # 앱 디렉토리로 이동
           cd /var/www/ielts-app
@@ -130,8 +127,8 @@ jobs:
           sudo tar -xzf /tmp/build.tar.gz -C /var/www/ielts-app/
           sudo rm /tmp/build.tar.gz
           
-          # 권한 설정
-          sudo chown -R www-data:www-data /var/www/ielts-app/build
+          # 권한 설정 (Oracle Linux에서는 opc 사용자 사용)
+          sudo chown -R opc:opc /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
           
           # Nginx 디렉토리 생성 (배포판별)
