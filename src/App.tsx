@@ -1092,13 +1092,224 @@ const part2Questions: Part2Question[] = [
         sampleAnswer: "Maybe around 6 or 7 years old, I believe. It's true that children absorb knowledge much faster and adapt a lot of useful information when learning something including languages than adults. But I personally think they shouldn't start learning two different languages at once until they reach the age of 6 or 7 as they can easily get mixed up with all new information."
       }
     ]
+  },
+  {
+    id: 8,
+    topic: "Food",
+    mainQuestion: "Describe a time when you tried a new food for the first time",
+    subQuestions: [
+      "What food it was",
+      "Where you ate it",
+      "What it tasted like",
+      "And explain whether or not you liked this food"
+    ],
+    sampleAnswer: "Around 3-4 years ago, I tried a new food for the first time at a new Spanish restaurant in Korea. The food was Paella, specifically the seafood one.\n\nIt looked like some kinds of stir-fried rice, but it was really new and exotic, not like Korean or European food. It actually tasted more like risotto. The rice wasn't that dry, and the seafood like shrimps and mussels were amazing. It was a bit salty but scrumptious. I finished it in about 10 minutes.\n\nI absolutely fell in love with Spanish cuisine including Paella, tapas, and others. It was very different to what I expected before I tried but it was truly awesome. I really liked everything we tried on that day and thought it would be wonderful if I really go to Spain and try the local food.",
+    category: "Part 2 - Food",
+    part3Questions: [
+      {
+        id: 1,
+        question: "In your country, what are the most common (or, popular) food that people eat?",
+        sampleAnswer: "I'd definitely say Korean traditional food is most common and popular in Korea. Also another booming one would be Italian as lots of Korean women like to eat Italian food, but generally speaking, it really depends on every individual."
+      },
+      {
+        id: 2,
+        question: "Do you think adults and children have the same attitudes towards food?",
+        sampleAnswer: "I don't quite think so. It seems like adults eat food for survival. They need to get energy to work hard for the day but children tend not to eat something bitter or they don't like. Children usually only want to eat something sweet or delicious ones. Well, of course some adults do the same, but generally they tend to eat more healthily."
+      },
+      {
+        id: 3,
+        question: "Do you think it's important for adults to teach children concerning the food we eat?",
+        sampleAnswer: "Absolutely. Adults should teach children everything from food to attitudes towards it. Children should realise the importance of nutrients rather than taste of a certain food, and also they need to learn about manners when eating food. I believe by teaching children about the food we eat, children can definitely pay attention not only to food but also something further like the environment or the animals."
+      },
+      {
+        id: 4,
+        question: "In general, would you say people in your country are willing to try new food?",
+        sampleAnswer: "Not everyone though. It totally depends on their characteristics but I think some youngsters are adventurous enough to try new food nowadays. When something becomes trendy, people tend to try new things including food but not everyone."
+      },
+      {
+        id: 5,
+        question: "Who do you think is more willing to try a new food, children or adults?",
+        sampleAnswer: "I'd say adults. From my surroundings, children only try something they already had before or tastes good. But as there are lots of adolescents and adults who have interests in other cultures, they are more open to try a new food when they have a chance."
+      },
+      {
+        id: 6,
+        question: "What kinds of foreign food are most common (or, most popular) in your country?",
+        sampleAnswer: "Maybe Chinese or Japanese, I suppose. There are massive numbers of restaurants sell those food and also Italian is very famous one, too. Also nowadays, European cuisines are booming in Korea so lots of pubs and restaurants launched in many towns in Seoul."
+      }
+    ]
+  },
+  {
+    id: 9,
+    topic: "Anger",
+    mainQuestion: "Describe a situation when you got a little angry",
+    subQuestions: [
+      "Where it happened",
+      "When it happened",
+      "Who you were with",
+      "And explain why you felt angry"
+    ],
+    sampleAnswer: "Actually I faced a situation which made me quite angry last week. It was last week, at the bus stop. I was heading to my home when I finished the work. Before it happened, it was quite a tough day for me as I had lots of things to finish on that day.\n\nWhen I arrived at the bus stop, it was very crowded with lots of people as there are 5 or 6 bus stops altogether. There were like at least 50 people waiting for their buses, so I found mine then joined the queue. At that time, I was on my own, listening to music while waiting for the bus, and waited for about 20 minutes.\n\nThen when the bus came towards the stop, a young girl suddenly came up somewhere and jumped in the queue right before me. I was so annoyed since I waited for 20 minutes, and there were tons of people behind me. I'm sure most people felt the same thing as me. So people started to yell at her, then she went back of the queue at the end. It was such a frustrating situation, and hope not to experience such thing again.",
+    category: "Part 2 - Anger",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What would you do if you make others angry at you?",
+        sampleAnswer: "Well, if it happens, I tend to talk to them first to sort the problem out. I just try to find out what they think and what made them upset, then apologise when it comes to my fault. But if they are just being aggressive, I just ignore them."
+      },
+      {
+        id: 2,
+        question: "In what ways can people manage their anger well?",
+        sampleAnswer: "Maybe they can take deep breath first of all. They can think over the situation that made them upset then take an action. Also people can enjoy things that will make them feel lifted. In my case, I tend to control my anger by watching something funny."
+      },
+      {
+        id: 3,
+        question: "Will working late at night influence the next day's work?",
+        sampleAnswer: "Yes, most definitely. I believe that working late at night will negatively affect the next day's work. It can lead to fatigue, reduced productivity, and difficulty concentrating. For example, I once had to attend a meeting at 10 AM, but I had worked until 2 AM the previous night. As a result, I was exhausted and struggled to focus during the meeting. I ended up making several mistakes and felt very frustrated. Since then, I try to avoid working late at night whenever possible."
+      },
+      {
+        id: 4,
+        question: "Do young people in your country stay up late at night?",
+        sampleAnswer: "I think so. From my surroundings, many youngsters tend to sleep late as they normally play computer games or smart phone games. Also secondary school students usually stay up until late due to huge amount of study."
+      },
+      {
+        id: 5,
+        question: "What kinds of things make people angry?",
+        sampleAnswer: "I think people get angry for various reasons. Some common triggers include unfair treatment, disrespect, long waiting times, and when others don't follow rules or social norms. Also, stress from work or personal life can make people more easily irritated."
+      }
+    ]
+  },
+  {
+    id: 10,
+    topic: "Foreign Language Communication",
+    mainQuestion: "Describe the first time you used a foreign language to communicate",
+    subQuestions: [
+      "Who you communicated with",
+      "What you said or wrote",
+      "What the situation was",
+      "And explain how you felt during this experience"
+    ],
+    sampleAnswer: "When I was 14 years old, I went to England to study so that was the first moment I communicated in a foreign language. A minute after the airplane landed at Heathrow airport in London, I was so excited and everything looked so different. Then I faced really big challenge, I had to talk in English at the immigration inspection.\n\nI was all alone and got to talk to one of the staffs and she seemed not happy as I couldn't really speak English much. She came up with some basic questions like what my purpose of entry is, how long I am going to stay in England, and other questions related to immigration. I was very nervous and couldn't really think of good answers so I mumbled a lot. I don't clearly remember what I really said, but I assume my answers were not quite relevant to the situation. It was like a nightmare. There was huge queue behind me, the immigration officer was staring at me, and I was scared by the situation so couldn't even speak a single thing. So she made me to stay at the airport for like 5 hours until a translator came.\n\nIt was quite embarrassing experience. I felt really embarrassing while sitting in the immigration office. I thought it happened because I wasn't good at English so kind of decided to study hard. Also I felt quite scary. I thought that I would be sent to Korea straight after I reached England, and actually saw a few people going back to their country because they couldn't obtain visa on that day. So I felt really nervous until I came out of the airport, I didn't want to go back on the first day I arrived in England. After that, I never had the same experience, and don't want to experience similar situation whenever I travel.",
+    category: "Part 2 - Foreign Language Communication",
+    part3Questions: [
+      {
+        id: 1,
+        question: "Do many people in your country learn a foreign language?",
+        sampleAnswer: "Yes, definitely. English is the most popular one among Korean people, but they learn some other languages like Japanese, Chinese, and so on. Many people tend to learn foreign languages due to different purposes."
+      },
+      {
+        id: 2,
+        question: "Can you explain why people learn foreign languages?",
+        sampleAnswer: "In my opinion, people learn foreign languages in order to migrate or study in different country. For example, more Korean people tend to learn English in order to study abroad or for migration. Also they have to learn second language because of business purposes or for their own interests in a particular culture."
+      },
+      {
+        id: 3,
+        question: "Some people say that primary school is the best time to start learning a new language. Do you agree?",
+        sampleAnswer: "Yes, I absolutely agree. Some people say children should start learning new language as young as they can, but I think nursery children should learn their own language first, and then start to learn new language when they go into primary school. They are still capable to adapt new knowledge quickly."
+      },
+      {
+        id: 4,
+        question: "What age do you think is better for a person to begin to learn a new language?",
+        sampleAnswer: "Maybe around 6 or 7 years old, I believe. It's true that children absorb knowledge much faster and adapt a lot of useful information when learning something including languages than adults. But I personally think they shouldn't start learning two different languages at once until they reach the age of 6 or 7 as they can easily get mixed up with all new information."
+      }
+    ]
+  },
+  {
+    id: 11,
+    topic: "Weather Plans",
+    mainQuestion: "Describe a time when the weather caused you to change your plans",
+    subQuestions: [
+      "What your plan was",
+      "What weather you were hoping for",
+      "What happened",
+      "And explain how you felt when you had to change your plans"
+    ],
+    sampleAnswer: "Well, there was a moment that I had to change my schedule because of heavy storm while I was studying at the university. I was supposed to meet a pen friend in London, who was visiting for the first time. I had meticulously planned her visit, including places to see and where to eat, aiming for her to have a good time.\n\nI hoped for pleasant and warm weather for her visit in March. Before her arrival, the weather was not bad compared to normal British weather, with no strong wind, sunny skies, and no rain for weeks.\n\nUpon her friend's arrival, the weather turned really bad. A strongest storm in 30 years was about to hit, and it started raining cats and dogs, continuing throughout her visit.\n\nI felt really frustrated because my plans to visit many tourist attractions became useless. As someone who dislikes changing plans, I found it quite stressful and get really upset whenever I have to change something from my plan even though it's because of the weather. However, there was a positive side: we could talk, enjoy the view of rainy London, and felt quite relaxed. We managed to take some pictures of the London Eye and Big Ben and had a lovely dinner together. Although the weather wasn't perfect, it was not a bad day.",
+    category: "Part 2 - Weather Plans",
+    part3Questions: [
+      {
+        id: 1,
+        question: "What kind of weather do people in your country prefer?",
+        sampleAnswer: "Definitely warm and pleasant weather. As the weather in Korea changes by the season, the weather in summer or winter is quite extreme. So people seem to prefer the weather in spring. The weather in spring is normally warm, sunny, and gentle breeze make people want to go outside."
+      },
+      {
+        id: 2,
+        question: "In general, do people in your country pay attention to the weather forecasts?",
+        sampleAnswer: "Generally speaking, most Korean people watch weather forecasting reports on TV every day. For businessmen, they tend to watch it because they can estimate the traffic if it's raining or snowing. Also if people plan to do some outdoor activities, they pay extra attention to it since they want very pleasant weather when they go out."
+      },
+      {
+        id: 3,
+        question: "Which people do you think pay more attention to the weather than other people?",
+        sampleAnswer: "The first one came up on my mind is the ones who work outside like builders as they spend majority of their time working outside. Also maybe salesman or taxi drivers might be the ones as they have to drive all day."
+      },
+      {
+        id: 4,
+        question: "Are weather forecasts in your country usually accurate?",
+        sampleAnswer: "When it rains or snows, they are mostly accurate and reliable. But in most cases, they aren't. I think they broadcast wrong information once in five times at least, and most people don't quite believe the weather information they provide."
+      },
+      {
+        id: 5,
+        question: "What different activities do people do in different seasons?",
+        sampleAnswer: "In sports wise, people go for water sports in summer, for instance, swimming, wakeboarding, and water skiing. And I think people tend to travel more in summer as most companies provide annual holiday at that season. In winter, winter sports such as skiing and snowboarding are very popular amongst Korean people so many people go and enjoy different activities in different seasons."
+      },
+      {
+        id: 6,
+        question: "Can you think of some examples of how the weather can have an impact on people doing certain jobs?",
+        sampleAnswer: "I'd say constructors are the ones whose job is dependent on the weather. They normally work outside in order to build buildings, so it's unlikely for them that they can continue with their work when it rains or snows. Also electricians might be the ones as their job is highly risky when the weather is bad. So they might not be able to do their work."
+      }
+    ]
+  },
+  {
+    id: 12,
+    topic: "Getting Up Early",
+    mainQuestion: "Describe an occasion you got up extremely early",
+    subQuestions: [
+      "When this happened",
+      "What you needed to do that day",
+      "Who you were with",
+      "And how you felt about getting up early that day"
+    ],
+    sampleAnswer: "I'm actually quite used to getting up early in the morning but I think I got up around 4 in the morning to catch a train around 5 years ago. I thought it would be like a nightmare because I never woke up that early before.\n\nOn that specific day, I had to attend a business meeting which was held in Birmingham. As I was travelling by a train with one of my colleagues, we had to book the tickets in advance. Strangely, most trains were fully booked so only one that we could find seats was departing at 5:20 in the morning. Of course we couldn't miss the meeting so had to take that train so we met at Waterloo station at around 4:40 am. I was quite afraid of myself becoming too exhausted in the meeting since I woke up too early.\n\nWell, although I'm a morning person, I never got up before 5 in the morning so it was quite tired. At first when I left home, everywhere was so quiet and dark so I couldn't really see a thing. It was truly odd to walk a street where there's no one around. And even my colleague and I managed to sleep on the train, we were exhausted when we got back to London. I thought the day passes really slowly. Also I quite liked the atmosphere of the early morning. It was really dark and chilly, but I felt I'm quite lively and pleased. So even I woke up really early, I think the day wasn't that bad as I expected.",
+    category: "Part 2 - Getting Up Early",
+    part3Questions: [
+      {
+        id: 1,
+        question: "Who usually get up early, young people or old people?",
+        sampleAnswer: "Probably old people, I presume. Young people tend to stay up until late night so they usually sleep until late morning, or even midday. But most old people wake up early in the morning and start their day earlier than young ones. I think as people grow older, they have to wake up early in the morning."
+      },
+      {
+        id: 2,
+        question: "Will working late at night influence the next day's work?",
+        sampleAnswer: "Yes, definitely. Normally when people work until late night, they can't concentrate much and feel more tired on the next day. It wouldn't make them to be productive or work hard like the other days."
+      },
+      {
+        id: 3,
+        question: "Do young people in your country stay up late at night?",
+        sampleAnswer: "I think so. From my surroundings, many youngsters tend to sleep late as they normally play computer games or smart phone games. Also secondary school students usually stay up until late due to huge amount of study."
+      },
+      {
+        id: 4,
+        question: "Is it easy to get up early for you?",
+        sampleAnswer: "Yes, I wake up around 5 in the morning every day even in the weekends. When I get up early, I can do more things on that day. And as I prefer to work in the morning, I tend not to sleep long."
+      },
+      {
+        id: 5,
+        question: "What do you do to guarantee a good sleep?",
+        sampleAnswer: "I use eye sleeping shades when it's noisy or bright. I turn everything off around me to sleep well. I aim for a good sleep every night, typically for around 3 to 4 hours, as I sleep relatively shorter hours. It's rare for me not to sleep well, but when struggling, I drink warm tea or milk to relax."
+      },
+      {
+        id: 6,
+        question: "Can you sleep well if there is noise around?",
+        sampleAnswer: "No, not at all. I am very sensitive at noise and can't sleep at all if there's any noise around. When I'm really tired or need good sleep, I sometimes use earplugs to sleep deeply."
+      }
+    ]
   }
 ];
 
 function App() {
-  const [currentPart, setCurrentPart] = useState<'part1' | 'part2'>('part1');
+  const [currentPart, setCurrentPart] = useState<'part1' | 'part2' | 'part3'>('part1');
   const [currentQuestion, setCurrentQuestion] = useState<Question>(sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)]);
   const [currentPart2Question, setCurrentPart2Question] = useState<Part2Question>(part2Questions[0]);
+  const [currentPart3Question, setCurrentPart3Question] = useState<Part3Question>(part2Questions[0].part3Questions[0]);
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [currentTranscript, setCurrentTranscript] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
@@ -1113,10 +1324,16 @@ function App() {
       const randomIndex = Math.floor(Math.random() * sampleQuestions.length);
       const randomQuestion = sampleQuestions[randomIndex];
       setCurrentQuestion(randomQuestion);
-    } else {
+    } else if (currentPart === 'part2') {
       const randomIndex = Math.floor(Math.random() * part2Questions.length);
       const randomPart2Question = part2Questions[randomIndex];
       setCurrentPart2Question(randomPart2Question);
+    } else if (currentPart === 'part3') {
+      const randomPart2Index = Math.floor(Math.random() * part2Questions.length);
+      const randomPart2Question = part2Questions[randomPart2Index];
+      const randomPart3Index = Math.floor(Math.random() * randomPart2Question.part3Questions.length);
+      const randomPart3Question = randomPart2Question.part3Questions[randomPart3Index];
+      setCurrentPart3Question(randomPart3Question);
     }
     setUserAnswer('');
     setSimilarityScore(null);
@@ -1133,8 +1350,17 @@ function App() {
     if (!userAnswer.trim()) return;
     
     // 간단한 유사도 계산 (실제로는 더 정교한 알고리즘이 필요)
+    let sampleAnswer = '';
+    if (currentPart === 'part1') {
+      sampleAnswer = currentQuestion.sampleAnswer;
+    } else if (currentPart === 'part2') {
+      sampleAnswer = currentPart2Question.sampleAnswer;
+    } else if (currentPart === 'part3') {
+      sampleAnswer = currentPart3Question.sampleAnswer;
+    }
+    
     const userWords = userAnswer.toLowerCase().split(/\s+/);
-    const sampleWords = currentQuestion.sampleAnswer.toLowerCase().split(/\s+/);
+    const sampleWords = sampleAnswer.toLowerCase().split(/\s+/);
     
     const commonWords = userWords.filter(word => sampleWords.includes(word));
     const similarity = (commonWords.length / Math.max(userWords.length, sampleWords.length)) * 100;
@@ -1175,17 +1401,102 @@ function App() {
           >
             Part 2
           </button>
+          <button 
+            onClick={() => {
+              setCurrentPart('part3');
+              setUserAnswer('');
+              setCurrentTranscript('');
+              setSimilarityScore(null);
+              setShowResult(false);
+            }} 
+            className={`part-button ${currentPart === 'part3' ? 'active' : ''}`}
+          >
+            Part 3
+          </button>
         </div>
 
         <div className="question-controls">
           <button onClick={getRandomQuestion} className="random-button">
             🎲 랜덤 문제 선택
           </button>
+          
+          {currentPart === 'part1' && (
+            <div className="topic-selector">
+              <h4>카테고리별 선택:</h4>
+              <div className="topic-buttons">
+                {Array.from(new Set(sampleQuestions.map(q => q.category))).map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      const categoryQuestions = sampleQuestions.filter(q => q.category === category);
+                      const randomQuestion = categoryQuestions[Math.floor(Math.random() * categoryQuestions.length)];
+                      setCurrentQuestion(randomQuestion);
+                      setUserAnswer('');
+                      setCurrentTranscript('');
+                      setSimilarityScore(null);
+                      setShowResult(false);
+                    }}
+                    className={`topic-button ${currentQuestion.category === category ? 'active' : ''}`}
+                  >
+                    {category.replace('Part 1 - ', '')}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {currentPart === 'part2' && (
+            <div className="topic-selector">
+              <h4>주제별 선택:</h4>
+              <div className="topic-buttons">
+                {part2Questions.map((question) => (
+                  <button
+                    key={question.id}
+                    onClick={() => {
+                      setCurrentPart2Question(question);
+                      setUserAnswer('');
+                      setCurrentTranscript('');
+                      setSimilarityScore(null);
+                      setShowResult(false);
+                    }}
+                    className={`topic-button ${currentPart2Question.id === question.id ? 'active' : ''}`}
+                  >
+                    {question.topic}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {currentPart === 'part3' && (
+            <div className="topic-selector">
+              <h4>주제별 선택:</h4>
+              <div className="topic-buttons">
+                {part2Questions.map((question) => (
+                  <button
+                    key={question.id}
+                    onClick={() => {
+                      const randomPart3Index = Math.floor(Math.random() * question.part3Questions.length);
+                      const randomPart3Question = question.part3Questions[randomPart3Index];
+                      setCurrentPart3Question(randomPart3Question);
+                      setUserAnswer('');
+                      setCurrentTranscript('');
+                      setSimilarityScore(null);
+                      setShowResult(false);
+                    }}
+                    className={`topic-button`}
+                  >
+                    {question.topic}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {currentPart === 'part1' ? (
           <QuestionCard question={currentQuestion} />
-        ) : (
+        ) : currentPart === 'part2' ? (
           <div className="part2-question">
             <h2>{currentPart2Question.topic}</h2>
             <h3>{currentPart2Question.mainQuestion}</h3>
@@ -1197,22 +1508,15 @@ function App() {
                 ))}
               </ul>
             </div>
-            
-            <div className="part3-section">
-              <h4>Part 3 - Follow-up Questions</h4>
-              <div className="part3-questions">
-                {currentPart2Question.part3Questions.map((part3Q, index) => (
-                  <div key={index} className="part3-question">
-                    <h5>Question {index + 1}:</h5>
-                    <p className="question-text">{part3Q.question}</p>
-                    <details className="sample-answer">
-                      <summary>Sample Answer</summary>
-                      <p>{part3Q.sampleAnswer}</p>
-                    </details>
-                  </div>
-                ))}
-              </div>
-            </div>
+          </div>
+        ) : (
+          <div className="part3-question">
+            <h2>Part 3 - Discussion Question</h2>
+            <h3>{currentPart3Question.question}</h3>
+            <details className="sample-answer">
+              <summary>Sample Answer</summary>
+              <p>{currentPart3Question.sampleAnswer}</p>
+            </details>
           </div>
         )}
         
@@ -1250,7 +1554,13 @@ function App() {
           <ResultDisplay
             similarityScore={similarityScore}
             userAnswer={userAnswer}
-            sampleAnswer={currentPart === 'part1' ? currentQuestion.sampleAnswer : currentPart2Question.sampleAnswer}
+            sampleAnswer={
+              currentPart === 'part1' 
+                ? currentQuestion.sampleAnswer 
+                : currentPart === 'part2'
+                ? currentPart2Question.sampleAnswer
+                : currentPart3Question.sampleAnswer
+            }
           />
         )}
       </main>
