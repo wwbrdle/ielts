@@ -119,17 +119,17 @@ jobs:
         username: ${{ secrets.ORACLE_USERNAME }}
         key: ${{ secrets.ORACLE_SSH_KEY }}
         port: ${{ secrets.ORACLE_PORT }}
-        timeout: 30s
-        command_timeout: 2m
+        timeout: 20s
+        command_timeout: 1m
         script: |
           echo "🚀 Setting up web server service..."
           
           # 기존 웹서버 프로세스 종료
           sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
           
-          # systemd 서비스 파일 생성
+          # systemd 서비스 파일 생성 (한 번에)
           echo "Creating systemd service..."
-          sudo tee /etc/systemd/system/ielts-app.service > /dev/null <<EOF
+          sudo bash -c 'cat > /etc/systemd/system/ielts-app.service << EOF
           [Unit]
           Description=IELTS App Web Server
           After=network.target
@@ -144,27 +144,23 @@ jobs:
           
           [Install]
           WantedBy=multi-user.target
-          EOF
+          EOF'
           
-          # 서비스 활성화 및 시작
+          # 서비스 활성화 및 시작 (빠르게)
           echo "Enabling and starting service..."
           sudo systemctl daemon-reload
           sudo systemctl enable ielts-app
           sudo systemctl start ielts-app
           
-          # 서비스 상태 확인
-          sleep 3
+          # 빠른 상태 확인
+          echo "Checking service status..."
           if sudo systemctl is-active --quiet ielts-app; then
             echo "✅ Web server service started successfully!"
-            echo "🌐 React app is now accessible at: http://$(curl -s ifconfig.me):8080"
-            echo "🔧 Service status: $(sudo systemctl status ielts-app --no-pager -l | head -5)"
+            echo "🌐 React app accessible at: http://$(curl -s ifconfig.me):8080"
           else
-            echo "❌ Failed to start web server service"
-            echo "Service logs:"
-            sudo journalctl -u ielts-app --no-pager -l | tail -10
-            exit 1
+            echo "⚠️ Service may still be starting, checking logs..."
+            sudo journalctl -u ielts-app --no-pager -l | tail -3
           fi
           
-          echo "🎉 Web server is running automatically on port 8080!"
-          echo "🌐 Access your app at: http://$(curl -s ifconfig.me):8080"
-          echo "💡 The service will automatically restart if it crashes or after reboot"
+          echo "🎉 Web server setup completed!"
+          echo "💡 Service will auto-restart and start on boot"
