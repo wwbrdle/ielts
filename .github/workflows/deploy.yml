@@ -111,22 +111,31 @@ jobs:
           sudo chmod -R 755 /var/www/ielts-app/build
           echo "Permissions set: $(ls -la build/)"
           
-          # 웹서버 자동 실행 (간소화)
-          echo "🚀 Starting web server automatically..."
+          echo "🎉 React app deployed successfully!"
+          echo "📁 Files are available at: /var/www/ielts-app/build"
+          echo "🚀 Ready to start web server in next step"
+          
+    - name: Start web server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.ORACLE_HOST }}
+        username: ${{ secrets.ORACLE_USERNAME }}
+        key: ${{ secrets.ORACLE_SSH_KEY }}
+        port: ${{ secrets.ORACLE_PORT }}
+        timeout: 30s
+        command_timeout: 2m
+        script: |
+          echo "🚀 Starting web server..."
           
           # 기존 웹서버 프로세스 종료
-          echo "Stopping existing web server processes..."
           sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
           sleep 1
           
           # 웹서버 시작
-          echo "Starting new web server on port 8080..."
           cd /var/www/ielts-app
-          
-          # 백그라운드에서 웹서버 실행
           nohup python3 -m http.server 8080 --directory build > /dev/null 2>&1 &
           
-          # 간단한 상태 확인
+          # 상태 확인
           sleep 2
           if pgrep -f "python3 -m http.server" > /dev/null; then
             echo "✅ Web server started successfully!"
@@ -136,7 +145,5 @@ jobs:
             exit 1
           fi
           
-          echo "🎉 React app deployed and web server started successfully!"
-          echo "📁 Files are available at: /var/www/ielts-app/build"
-          echo "🚀 Web server is running on port 8080"
+          echo "🎉 Web server is running on port 8080"
           echo "🌐 Access your app at: http://$(curl -s ifconfig.me):8080"
