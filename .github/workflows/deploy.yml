@@ -75,45 +75,12 @@ jobs:
         key: ${{ secrets.ORACLE_SSH_KEY }}
         port: ${{ secrets.ORACLE_PORT }}
         script: |
-          # 서버 초기 설정
-          echo "Setting up server environment..."
+          # React 앱 배포
+          echo "Deploying React app..."
           
-          # Linux 배포판 확인
-          if [ -f /etc/os-release ]; then
-            . /etc/os-release
-            echo "Detected OS: $ID $VERSION_ID"
-          fi
-          
-          # 필요한 디렉토리 생성
+          # 앱 디렉토리 생성
           sudo mkdir -p /var/www/ielts-app
-          sudo chown -R $USER:$USER /var/www/ielts-app
-          
-          # Nginx 설치 확인 및 설치 (여러 배포판 지원)
-          if ! command -v nginx &> /dev/null; then
-            echo "Installing Nginx..."
-            
-            if command -v apt &> /dev/null; then
-              # Ubuntu/Debian
-              sudo apt update
-              sudo apt install -y nginx
-              sudo systemctl enable nginx
-            elif command -v yum &> /dev/null; then
-              # CentOS/RHEL/Oracle Linux 7
-              sudo yum install -y epel-release
-              sudo yum install -y nginx
-              sudo systemctl enable nginx
-            elif command -v dnf &> /dev/null; then
-              # CentOS/RHEL/Oracle Linux 8+
-              sudo dnf install -y nginx
-              sudo systemctl enable nginx
-            else
-              echo "ERROR: Unsupported package manager"
-              exit 1
-            fi
-          fi
-          
-          # Oracle Linux에서는 opc 사용자 사용
-          echo "Using existing opc user for Oracle Linux"
+          sudo chown -R opc:opc /var/www/ielts-app
           
           # 앱 디렉토리로 이동
           cd /var/www/ielts-app
@@ -127,49 +94,10 @@ jobs:
           sudo tar -xzf /tmp/build.tar.gz -C /var/www/ielts-app/
           sudo rm /tmp/build.tar.gz
           
-          # 권한 설정 (Oracle Linux에서는 opc 사용자 사용)
+          # 권한 설정
           sudo chown -R opc:opc /var/www/ielts-app/build
           sudo chmod -R 755 /var/www/ielts-app/build
           
-          # Nginx 디렉토리 생성 (배포판별)
-          if [ -d "/etc/nginx/sites-available" ]; then
-            # Ubuntu/Debian 스타일
-            sudo mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
-            sudo tee /etc/nginx/sites-available/ielts-app > /dev/null <<EOF
-          server {
-              listen 80;
-              server_name _;
-              
-              root /var/www/ielts-app/build;
-              index index.html;
-              
-              location / {
-                  try_files \$uri \$uri/ /index.html;
-              }
-          }
-          EOF
-            sudo ln -sf /etc/nginx/sites-available/ielts-app /etc/nginx/sites-enabled/
-            sudo rm -f /etc/nginx/sites-enabled/default
-          else
-            # CentOS/RHEL/Oracle Linux 스타일
-            sudo mkdir -p /etc/nginx/conf.d
-            sudo tee /etc/nginx/conf.d/ielts-app.conf > /dev/null <<EOF
-          server {
-              listen 80;
-              server_name _;
-              
-              root /var/www/ielts-app/build;
-              index index.html;
-              
-              location / {
-                  try_files \$uri \$uri/ /index.html;
-              }
-          }
-          EOF
-          fi
-          
-          # Nginx 설정 테스트 및 재시작
-          sudo nginx -t
-          sudo systemctl restart nginx
-          
-          echo "Deployment completed successfully!"
+          echo "React app deployed successfully!"
+          echo "Files are available at: /var/www/ielts-app/build"
+          echo "To serve the app, run: cd /var/www/ielts-app && python3 -m http.server 80 --directory build"
