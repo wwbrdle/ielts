@@ -123,12 +123,17 @@ jobs:
         command_timeout: 1m
         script: |
           echo "🚀 Setting up web server service..."
+          echo "Step 1: Checking current directory and permissions..."
+          pwd
+          ls -la /var/www/ielts-app/
           
-          # 기존 웹서버 프로세스 종료
+          echo "Step 2: Stopping existing web server processes..."
           sudo pkill -f "python3 -m http.server" || echo "No existing processes to stop"
+          echo "Processes after kill:"
+          ps aux | grep "python3 -m http.server" || echo "No python http.server processes found"
           
-          # systemd 서비스 파일 생성 (한 번에)
-          echo "Creating systemd service..."
+          echo "Step 3: Creating systemd service file..."
+          echo "Service file path: /etc/systemd/system/ielts-app.service"
           sudo bash -c 'cat > /etc/systemd/system/ielts-app.service << EOF
           [Unit]
           Description=IELTS App Web Server
@@ -146,21 +151,45 @@ jobs:
           WantedBy=multi-user.target
           EOF'
           
-          # 서비스 활성화 및 시작 (빠르게)
-          echo "Enabling and starting service..."
-          sudo systemctl daemon-reload
-          sudo systemctl enable ielts-app
-          sudo systemctl start ielts-app
+          echo "Step 4: Verifying service file creation..."
+          echo "Service file exists: $(ls -la /etc/systemd/system/ielts-app.service)"
+          echo "Service file content:"
+          sudo cat /etc/systemd/system/ielts-app.service
           
-          # 빠른 상태 확인
-          echo "Checking service status..."
+          echo "Step 5: Reloading systemd daemon..."
+          sudo systemctl daemon-reload
+          echo "Daemon reload completed"
+          
+          echo "Step 6: Enabling service..."
+          sudo systemctl enable ielts-app
+          echo "Service enabled status: $(systemctl is-enabled ielts-app)"
+          
+          echo "Step 7: Starting service..."
+          sudo systemctl start ielts-app
+          echo "Service start command completed"
+          
+          echo "Step 8: Checking service status..."
+          echo "Service active status: $(systemctl is-active ielts-app)"
+          echo "Service enabled status: $(systemctl is-enabled ielts-app)"
+          
+          echo "Step 9: Checking service logs..."
+          echo "Recent service logs:"
+          sudo journalctl -u ielts-app --no-pager -l | tail -5
+          
+          echo "Step 10: Checking if port 8080 is listening..."
+          echo "Port 8080 status:"
+          sudo ss -tlnp | grep :8080 || echo "Port 8080 not listening"
+          
+          echo "Step 11: Final verification..."
           if sudo systemctl is-active --quiet ielts-app; then
-            echo "✅ Web server service started successfully!"
+            echo "✅ SUCCESS: Web server service is running!"
             echo "🌐 React app accessible at: http://$(curl -s ifconfig.me):8080"
           else
-            echo "⚠️ Service may still be starting, checking logs..."
-            sudo journalctl -u ielts-app --no-pager -l | tail -3
+            echo "❌ FAILED: Service is not running"
+            echo "Service state: $(systemctl show ielts-app --property=ActiveState,SubState)"
+            echo "Last 10 service logs:"
+            sudo journalctl -u ielts-app --no-pager -l | tail -10
           fi
           
-          echo "🎉 Web server setup completed!"
-          echo "💡 Service will auto-restart and start on boot"
+          echo "🎉 Web server setup process completed!"
+          echo "💡 Check logs above for any errors"
